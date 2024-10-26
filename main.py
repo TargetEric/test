@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.enums import ChatMemberStatus
 from datetime import datetime, timedelta
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 app = Client(
     "delbot",
     6131334,
@@ -14,12 +15,26 @@ async def isadmin(client, chat_id, user_id):
     return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]
 @app.on_message(filters.command("start"))
 async def startmessage(client, msg):
+    bot_username = (await client.get_me()).username
+    keyboard = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(
+                "Add Me To Your Group",
+                url=f"https://t.me/{bot_username}?startgroup=s&admin=delete_messages+invite_users"
+            )
+        ],
+        [
+            InlineKeyboardButton("Updates", url="https://t.me/Ak4ssh"),
+            InlineKeyboardButton("Support", url="https://t.me/Ak4ssh")
+        ]
+    ])
     await msg.reply(
         "Hello! 👋 I'm your Edit Guardian Bot, here to maintain a secure environment for our discussions.\n\n"
         "🚫 *Edited Message Deletion*: I'll remove edited messages to maintain transparency.\n\n"
         "📢 *Notifications*: You'll be informed each time a message is deleted.\n\n"
         "🌟 *Get Started*:\n1. Add me to your group.\n2. I'll start protecting instantly.\n\n"
         "➡️ Click on 'Add Me To Your Group' to keep our group safe!",
+        reply_markup=keyboard
     )
 @app.on_message(filters.command("auth") & filters.reply | filters.command("auth"))
 async def authorizeuser(client, msg):
