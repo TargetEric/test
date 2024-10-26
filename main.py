@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.enums import ChatMemberStatus
 from datetime import datetime, timedelta
 app = Client(
     "delbot",
@@ -10,7 +11,7 @@ timelimit = 2
 authorizedusers = set()
 async def isadmin(client, chat_id, user_id):
     member = await client.get_chat_member(chat_id, user_id)
-    return member.status in ["administrator", "creator"]
+    return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]
 @app.on_message(filters.command("start"))
 async def startmessage(client, msg):
     await msg.reply(
@@ -55,7 +56,10 @@ async def deleteedits(client, msg):
         return
     if datetime.now() - msg.date > timedelta(minutes=timelimit):
         await msg.delete()
-        print(f"Deleted edited message from {msg.from_user.username}")
+        await client.send_message(
+            msg.chat.id,
+            f"{msg.from_user.mention} just edited a message and I deleted it. 🤡"
+        )
     else:
         print("Edit within 2 minutes; no action taken.")
 if __name__ == '__main__':
