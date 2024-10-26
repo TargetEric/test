@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from datetime import datetime, timedelta
-import config
 app = Client(
     "delbot",
     API_ID=6131334,
