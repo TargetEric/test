@@ -1,5 +1,6 @@
+import asyncio
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 
 # Replace 'YOUR_BOT_TOKEN' with your bot's API token
 BOT_TOKEN = '7546434205:AAGN7aIVMB8VI63eU_udN6PMB7nLzyllluw'
@@ -25,5 +26,12 @@ async def main():
     await app.run_polling()
 
 if __name__ == '__main__':
-    import asyncio
-    asyncio.run(main())
+    # Check if the event loop is already running
+    try:
+        asyncio.get_event_loop().run_until_complete(main())
+    except RuntimeError as e:
+        if str(e) == 'This event loop is already running':
+            # If the event loop is already running, create a task for the main function
+            asyncio.ensure_future(main())
+        else:
+            raise
