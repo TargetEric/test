@@ -4,7 +4,7 @@ import config
 app = Client(
     "delbot",
     API_ID=6131334,
-    API_HASH=9514b24d20d23c06bae8a5c2b60fa0c7,
+    API_HASH='9514b24d20d23c06bae8a5c2b60fa0c7',
     bot_token="7546434205:AAGN7aIVMB8VI63eU_udN6PMB7nLzyllluw",
 )
 time_limit = 2
