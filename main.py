@@ -5,7 +5,7 @@ app = Client(
     "delbot",
     config.API_ID,
     config.API_HASH,
-    bot_token=7546434205:AAGN7aIVMB8VI63eU_udN6PMB7nLzyllluw,
+    bot_token="7546434205:AAGN7aIVMB8VI63eU_udN6PMB7nLzyllluw",
 )
 time_limit = 2
 @app.on_edited_message()
