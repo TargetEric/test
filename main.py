@@ -24,8 +24,8 @@ async def startmessage(client, msg):
             )
         ],
         [
-            InlineKeyboardButton("Updates", url="https://t.me/Ak4ssh"),
-            InlineKeyboardButton("Support", url="https://t.me/Ak4ssh")
+            InlineKeyboardButton("Updates", url="https://t.me/TargetEric"),
+            InlineKeyboardButton("Support", url="https://t.me/TargetEric")
         ]
     ])
     await msg.reply(
