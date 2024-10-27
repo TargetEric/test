@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ChatMemberStatus
 from datetime import datetime, timedelta
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 app = Client(
     "delbot",
     6131334,
@@ -24,8 +24,8 @@ async def startmessage(client, msg):
             )
         ],
         [
-            InlineKeyboardButton("Updates", url="https://t.me/TargetEric"),
-            InlineKeyboardButton("Support", url="https://t.me/TargetEric")
+            InlineKeyboardButton("Updates", url="https://t.me/YourUpdateChannel"),
+            InlineKeyboardButton("Support", url="https://t.me/YourSupportGroup")
         ]
     ])
     await msg.reply(
@@ -34,6 +34,7 @@ async def startmessage(client, msg):
         "📢 *Notifications*: You'll be informed each time a message is deleted.\n\n"
         "🌟 *Get Started*:\n1. Add me to your group.\n2. I'll start protecting instantly.\n\n"
         "➡️ Click on 'Add Me To Your Group' to keep our group safe!",
+        parse_mode="markdown",
         reply_markup=keyboard
     )
 @app.on_message(filters.command("auth") & filters.reply | filters.command("auth"))
@@ -70,13 +71,18 @@ async def deleteedits(client, msg):
     if msg.from_user.id in authorizedusers:
         return
     if datetime.now() - msg.date > timedelta(minutes=timelimit):
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton("Updates", url="https://t.me/YourUpdateChannel"),
+                InlineKeyboardButton("Support", url="https://t.me/YourSupportGroup")
+            ]
+        ])
         await msg.delete()
         await client.send_message(
             msg.chat.id,
-            f"{msg.from_user.mention} just edited a message and I deleted it. 🤡"
+            f"{msg.from_user.mention} just edited a message and I deleted it. 🤡",
+            reply_markup=keyboard
         )
-    else:
-        print("Edit within 2 minutes; no action taken.")
 if __name__ == '__main__':
     app.run()
     app.run_until_disconnected()
