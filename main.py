@@ -34,7 +34,7 @@ async def startmessage(client, msg):
         "📢 *Notifications*: You'll be informed each time a message is deleted.\n\n"
         "🌟 *Get Started*:\n1. Add me to your group.\n2. I'll start protecting instantly.\n\n"
         "➡️ Click on 'Add Me To Your Group' to keep our group safe!",
-        parse_mode="markdown",
+        
         reply_markup=keyboard
     )
 @app.on_message(filters.command("auth") & filters.reply | filters.command("auth"))
